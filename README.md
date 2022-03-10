@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# 토이프로젝트1
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 리덕스를 활용한 수도퀴즈페이지 만들기
 
-## Available Scripts
+### 알게된 css
 
-In the project directory, you can run:
+1. Transition : 컴포넌트가 변하는데 걸리는 시간을 정해줌
+2. Hover : 컴포넌트에 마우스를 올렸을때 변화
+3. Inherit : 상위 컴포넌트에게 그대로 상속받는것
+4. Box-shadow : 요소의 테두리를 감싼 그림자효과를 준다 (수평거리, 수직거리, 흐릿함, 확산, 색상)
 
-### `npm start`
+- em : font_size, 해당폰트의 대문자 M의 너비를 기준으로 함.
+- ex : x-height, 해당폰트의 소문자 x의 높이를 기준으로 함.
+- px : pixel, 표시장치(모니터)에 따라서 상대적인 크기를 가짐.
+- %  : percent, 기본글꼴의 크기에 대하여 상대적인 값을 가짐.
+- pt  : point, 일반 문서(워드 등)에서 많이 사용하는 단위
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* px = pt / 0.75
+* pt = px \* 0.75
+* em = pt / 12
+* % = pt \* 100 / 12
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 리듀스 용법
 
-### `npm test`
+- 리덕스 : 상태 관리를 컴포넌트 바깥에서 한다.
+- 사용이유 : 부모 컴포넌트를 통해 전달받던 모든 props들이 store를 동하여 전달받을수 있게된다
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* 컴포넌트가 스토어에 구독을한다 -> 구독을 하는 과정에서 특정 함수(listener)가 스토어한테 전달이 된다 -> 나중에 스토어의 상태값에 변동이 생긴다면 전달 받았던 함수를 호출해준다.
 
-### `npm run build`
+* 컴포넌트에서 스토어에 상태변경하라고 알려주기
+* 컴포넌트에서 어떤 이벤트가 생겨서 상태를 변화할 일이 생긴다면 dispatch라는 함수를 통하여 액션을 스토어에게 전달
+* 액션은 상태에 변화를 일으킬 때 참조 할 수 있는 객체이다 (type이라는 값을 필수적으로 가지고있어야함 )
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* 리듀서 : 액션 객체를 받으면 전달받은 액션의 타입에 따라 어떻게 상태를 업데이트 해야 할지 정의를 해준다
+* 우리는 액션객체(문자열 타입)을 전달 받으면 그 타입(문자열)에 따라 어떻게 행동할지 함수를 구현해 줄 것
+* 이전 상태와 동작을 받아 새 상태를 리턴한다.
+* 리듀서는 반드시 순수 함수여야 한다. 이를테면 데이터베이스 호출이나 HTTP호출 등 외부의 데이터 구조를 변형하는 호출은 허용되지 않는다
+* 리듀서는 항상 현재상태를 ‘읽기전용’으로 다룬다. 기존 상태를 변경하지는 않지만 새 상태를 리턴 할 수 있다
